@@ -27,7 +27,12 @@ async function main() {
       const sendHeaders = {
         'destination': '/queue/test1',
         'content-type': 'text/plain',
-        'JMSXGroupID':'t1'
+        'JMSXGroupID':'t1',
+        /**
+         * In order to reset, 'JMSXGroupSeq':-1. So if another message is sent in the future with the same message group ID it will be reassigned to a new consumer.
+         * @see https://activemq.apache.org/message-groups
+         */
+        // 'JMSXGroupSeq':-1
       }
 
       const frame = client.send(sendHeaders)
